@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields,api
+from odoo import models,api,_
 import logging
 from odoo.tools import float_compare
-from odoo.exceptions import UserError
-from  datetime import datetime , timedelta 
 _logger = logging.getLogger(__name__)
 
 
 class PaymentTransaction(models.Model):
     _inherit = 'payment.transaction'
-    
+
     def _confirm_so(self):
         """ Check tx state, confirm the potential SO """
         self.ensure_one()
@@ -43,7 +41,7 @@ class PaymentTransaction(models.Model):
                 self.sale_order_id.with_context(send_email=True).action_confirm()
         elif self.state not in ['cancel', 'error'] and self.sale_order_id.state == 'draft':
             _logger.info('<%s> transaction pending/to confirm manually, sending quote email for order %s (ID %s)', self.acquirer_id.provider, self.sale_order_id.name, self.sale_order_id.id)
-            self.sale_order_id.force_quotation_send()
+            self.sale_order_id.action_confirm()
         else:
             _logger.warning('<%s> transaction MISMATCH for order %s (ID %s)', self.acquirer_id.provider, self.sale_order_id.name, self.sale_order_id.id)
             return 'pay_sale_tx_state'
