@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="name_id_form" model="ir.ui.view">
+		<field name="name">acquirer_form.form</field>
+		<field name="model">payment.acquirer</field>
+		<field name="inherit_id">payment.acquirer_form</field>
+		<field name="arch" type="xml">
+			<field name="provider" position="after">
+				<field name="capture_manually"/>
+			</field>
+		</field>
+	</record>
+</odoo>
