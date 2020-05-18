@@ -17,6 +17,7 @@
 
     # always loaded
     'data': [
+        'views/payment.xml',
         'views/cron.xml',
     ],
 }

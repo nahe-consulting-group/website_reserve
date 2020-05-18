@@ -16,6 +16,7 @@ class SaleOrder(models.Model):
 
         confirmation_date = datetime.now() - timedelta(hours = hours_old)
         order_ids = self.search([
-            ('state','=','sale'), 
+            ('state','=','sale'),
+            ('picking_ids.state','not in',['done','cancel']), 
             ('confirmation_date','<', fields.Datetime.to_string(confirmation_date)),
             ('team_id.team_type','=',  'website')]).action_cancel()
