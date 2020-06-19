@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="is_done_search" model="ir.ui.view">
+		<field name="name">sale_order.search</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+		<field name="arch" type="xml">
+			<filter name="draft" position="before">
+				<filter string="Picking Done" name="pickingdone" domain="[('picking_ids.state','=','done')]"/>
+				<filter string="NO Picking Done" name="nopickingdone" domain="['|',('picking_ids.state','!=','done'),('picking_ids','=',False)]"/>
+			</filter>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="view_order_form">
+	    <field name="name">view_order.form</field>
+	    <field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+
+	    <field name="arch" type="xml">
+	    	<field name="partner_shipping_id" position="after">
+	    		<field name="picking_done"/>
+	    	</field>
+
+	    </field>
+	</record>
+</odoo>

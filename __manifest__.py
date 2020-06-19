@@ -19,5 +19,6 @@
     'data': [
         'views/payment.xml',
         'views/cron.xml',
+        'views/sale_order.xml'
     ],
 }
